@@ -5,6 +5,7 @@ import { StyleSheet, View, Image } from 'react-native'
 import Button from './components/Button'
 import CircleButton from './components/CircleButton'
 import EmojiList from './components/EmojiList'
+import EmojiSticker from './components/EmojiSticker'
 import EmojiPicker from './components/EmojiPicker'
 import IconButton from './components/IconButton'
 import ImageViewer from './components/ImageViewer'
@@ -53,6 +54,9 @@ export default function App() {
           placeholderImageSource={placeholderImage}
           selectedImage={selectedImage}
         />
+        {pickedEmoji !== null ? (
+          <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />
+        ) : null}
       </View>
       {showAppOptions ? (
         <View style={styles.optionsContainer}>
