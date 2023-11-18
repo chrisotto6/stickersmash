@@ -3,6 +3,8 @@ import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
 import { StyleSheet, View, Image } from 'react-native'
 import Button from './components/Button'
+import CircleButton from './components/CircleButton'
+import IconButton from './components/IconButton'
 import ImageViewer from './components/ImageViewer'
 
 const placeholderImage = require('./assets/images/background-image.png')
@@ -24,6 +26,18 @@ export default function App() {
     }
   }
 
+  const onReset = () => {
+    setShowAppOptions(false)
+  }
+
+  const onAddSticker = () => {
+    // soon
+  }
+
+  const onSaveImageAsync = async () => {
+    // soon
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -33,21 +47,31 @@ export default function App() {
         />
       </View>
       {showAppOptions ? (
-        <View />
+        <View style={styles.optionsContainer}>
+          <View style={styles.optionsRow}>
+            <IconButton icon='refresh' label='Reset' onPress={onReset} />
+            <CircleButton onPress={onAddSticker} />
+            <IconButton
+              icon='save-alt'
+              label='Save'
+              onPress={onSaveImageAsync}
+            />
+          </View>
+        </View>
       ) : (
         <View style={styles.footerContainer}>
           <Button
-            theme="primary"
-            label="Choose a photo"
+            theme='primary'
+            label='Choose a photo'
             onPress={pickImageAsync}
           />
           <Button
-            label="Use this photo"
+            label='Use this photo'
             onPress={() => setShowAppOptions(true)}
           />
         </View>
       )}
-      <StatusBar style="auto" />
+      <StatusBar style='auto' />
     </View>
   )
 }
@@ -66,5 +90,13 @@ const styles = StyleSheet.create({
   footerContainer: {
     flex: 1 / 3,
     alignItems: 'center',
+  },
+  optionsContainer: {
+    position: 'absolute',
+    bottom: 80,
+  },
+  optionsRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 })
