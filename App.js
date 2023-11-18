@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { StyleSheet, View, Image } from 'react-native'
 import Button from './components/Button'
 import CircleButton from './components/CircleButton'
+import EmojiList from './components/EmojiList'
+import EmojiPicker from './components/EmojiPicker'
 import IconButton from './components/IconButton'
 import ImageViewer from './components/ImageViewer'
 
@@ -11,7 +13,9 @@ const placeholderImage = require('./assets/images/background-image.png')
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null)
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const [showAppOptions, setShowAppOptions] = useState(false)
+  const [pickedEmoji, setPickedEmoji] = useState(null)
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -31,7 +35,11 @@ export default function App() {
   }
 
   const onAddSticker = () => {
-    // soon
+    setIsModalVisible(true)
+  }
+
+  const onModalClose = () => {
+    setIsModalVisible(false)
   }
 
   const onSaveImageAsync = async () => {
@@ -71,6 +79,9 @@ export default function App() {
           />
         </View>
       )}
+      <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
+        <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
+      </EmojiPicker>
       <StatusBar style='auto' />
     </View>
   )
